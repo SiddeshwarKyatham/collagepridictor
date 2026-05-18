@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  
+  /* Bind Tailwind colors to CSS variables */
+  --color-primary: var(--bg-primary);
+  --color-primary-foreground: var(--text-primary);
+  --color-secondary: var(--bg-secondary);
+  --color-secondary-foreground: var(--text-secondary);
+  --color-card: var(--bg-card);
+  --color-card-foreground: var(--text-primary);
+  --color-border: var(--border-color);
+  --color-input: var(--bg-card);
+  --color-ring: #3B82F6;
+  
+  /* Accents */
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-green: var(--accent-green);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-red: var(--accent-red);
+}
+
+@layer base {
+  /* Premium Dark Mode (Midnight Blue / Slate) */
+  :root {
+    --bg-primary: #090E17;
+    --bg-secondary: #0F172A;
+    --bg-card: #151E32;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --border-color: #1E293B;
+    
+    --accent-blue: #3B82F6;
+    --accent-green: #10B981;
+    --accent-yellow: #F59E0B;
+    --accent-red: #EF4444;
+  }
+
+  /* Premium Light Mode (Pearl Slate) */
+  :root.light {
+    --bg-primary: #F8FAFC;
+    --bg-secondary: #F1F5F9;
+    --bg-card: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --border-color: #E2E8F0;
+    
+    --accent-blue: #2563EB;
+    --accent-green: #059669;
+    --accent-yellow: #D97706;
+    --accent-red: #DC2626;
+  }
+
+  body {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  ::selection {
+    background-color: var(--color-accent-blue);
+    color: white;
+  }
+}
+
+@layer components {
+  /* Minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-secondary-foreground);
+  }
+}

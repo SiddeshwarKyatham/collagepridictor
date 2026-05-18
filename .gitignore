@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.production
+backend/.env
+
+# Build output
+frontend/dist/
+frontend/.vite/
+
+# Runtime data
+backend/data/stats.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Prisma migrations (optional, can be committed if desired)
+# backend/prisma/migrations/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Package lock (keep package-lock.json, ignore others)
+yarn.lock
+pnpm-lock.yaml

@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment files (never commit secrets)
+.env
+.env.local
+.env.production
+
+# Prisma
+prisma/migrations/
+
+# Build
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Stats data (runtime generated)
+data/stats.json

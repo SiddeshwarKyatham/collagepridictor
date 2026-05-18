@@ -1,0 +1,83 @@
+// This file is the generated datasource block for Prisma
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────────
+// Cutoff Model
+// One record = one college × branch × category × gender cutoff
+// ─────────────────────────────────────────────────────────────
+model Cutoff {
+  id          Int    @id @default(autoincrement())
+
+  // Metadata
+  year        Int
+  phase       String   // "First" | "Second" | "Final"
+
+  // College info
+  collegeCode String
+  collegeName String
+  place       String
+  district    String
+  collegeType String
+  coEducation String
+  affiliatedTo String
+
+  // Branch info
+  branchCode  String
+  branchName  String
+
+  // Category & Gender
+  category    String   // "OC" | "BC_A" | "BC_B" | "BC_C" | "BC_D" | "BC_E" | "SC_I" | "SC_II" | "SC_III" | "ST" | "EWS"
+  gender      String   // "BOYS" | "GIRLS"
+
+  // The closing rank for this cutoff
+  closingRank Int
+
+  // ── Indexes for fast query performance ──────────────────
+  @@index([year, phase])
+  @@index([category, gender])
+  @@index([district])
+  @@index([branchCode])
+  @@index([collegeCode])
+  @@index([closingRank])
+  @@index([year, phase, category, gender])
+  @@index([year, phase, category, gender, branchCode])
+
+  @@map("cutoffs")
+}
+
+model CollegeProfile {
+  collegeCode    String  @id
+  collegeName    String?
+  place          String?
+  district       String?
+  collegeType    String?
+  coEducation    String?
+  affiliatedTo   String?
+
+  description    String? @db.Text
+  websiteUrl     String?
+  logoUrl        String?
+  establishedYear Int?
+  facilities     String? // Comma separated
+
+  twitterUrl     String?
+  linkedinUrl    String?
+  instagramUrl   String?
+
+  // V2 Features
+  tuitionFee       Int?
+  averagePlacement Float?
+  latitude         Float?
+  longitude        Float?
+
+  @@map("college_profiles")
+}
