@@ -5,6 +5,7 @@ const cors    = require("cors");
 
 const predictRoutes = require("./routes/predictRoutes");
 const statsRoutes   = require("./routes/statsRoutes");
+const { initCronJobs } = require("./services/cronService");
 
 // ─────────────────────────────────────────────────────────────
 const app  = express();
@@ -69,6 +70,8 @@ app.use((err, _req, res, _next) => {
 });
 
 // ── Start Server ──────────────────────────────────────────────
+initCronJobs();
+
 app.listen(PORT, () => {
   console.log("==============================================");
   console.log("  TG EAPCET Predictor API");
