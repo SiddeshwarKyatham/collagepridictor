@@ -143,30 +143,22 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
         <AnimatePresence>
           {Object.keys(errors).length > 0 && (
             <motion.div
-              initial={{ opacity: 0, height: 0, y: -15 }}
-              animate={{ opacity: 1, height: 'auto', y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -15 }}
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="bg-accent-red/10 border border-accent-red/35 rounded-2xl p-4 mb-5 text-accent-red text-sm font-medium relative overflow-hidden"
+              className="bg-accent-red/10 border border-accent-red/25 backdrop-blur-md rounded-2xl p-3.5 mb-5 text-sm relative overflow-hidden flex items-center gap-3 shadow-md shadow-accent-red/5"
             >
-              <div className="flex items-start gap-3">
-                <div className="shrink-0 w-7 h-7 rounded-full bg-accent-red/20 flex items-center justify-center text-accent-red">
-                  <AlertTriangle className="w-4 h-4" />
-                </div>
-                <div className="space-y-1 flex-1">
-                  <p className="font-bold text-accent-red">Missing Required Information</p>
-                  <p className="text-xs text-secondary-foreground leading-relaxed">
-                    To prevent misleading prediction results, please fill in all requested fields:
-                  </p>
-                  <ul className="list-disc list-inside text-xs text-secondary-foreground mt-2 space-y-1">
-                    {Object.values(errors).map((err, idx) => (
-                      <li key={idx} className="text-secondary-foreground/90 font-medium">
-                        {err}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {/* Pulsing red notification dot */}
+              <div className="relative flex h-2.5 w-2.5 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-red opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-red"></span>
               </div>
+              
+              <div className="flex-1 text-xs text-primary-foreground font-semibold leading-relaxed">
+                Please select your <strong className="text-accent-red">Rank, Category, Gender & Phase</strong> to get genuine cutoffs!
+              </div>
+              
               <div className="absolute inset-0 bg-gradient-to-r from-accent-red/5 to-transparent pointer-events-none" />
             </motion.div>
           )}
