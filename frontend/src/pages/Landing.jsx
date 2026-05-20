@@ -50,7 +50,7 @@ export default function Landing() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="max-w-2xl order-2 lg:order-1"
+                className="max-w-2xl"
               >
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary-foreground leading-tight mb-6">
                   Find the Best TG EAPCET Colleges for Your Rank
@@ -108,7 +108,7 @@ export default function Landing() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="w-full max-w-md mx-auto lg:ml-auto lg:mr-0 order-1 lg:order-2"
+                className="w-full max-w-md mx-auto lg:ml-auto lg:mr-0"
               >
                 <PredictorForm />
               </motion.div>

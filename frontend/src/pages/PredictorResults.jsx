@@ -24,10 +24,10 @@ export default function PredictorResults() {
   
   const currentParams = {
     rank: searchParams.get('rank') || '',
-    category: searchParams.get('category') || 'OC',
-    gender: searchParams.get('gender') || 'BOYS',
-    phase: searchParams.get('phase') || 'Final',
-    district: searchParams.get('district') || 'All',
+    category: searchParams.get('category') || '',
+    gender: searchParams.get('gender') || '',
+    phase: searchParams.get('phase') || '',
+    district: searchParams.get('district') || '',
     branches: branchParams.length > 0 ? branchParams : undefined
   };
 

@@ -85,3 +85,21 @@
     background-color: var(--color-secondary-foreground);
   }
 }
+
+/* Shake animation and premium input error glow */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-6px); }
+  30%, 60%, 90% { transform: translateX(6px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.border-error-glow {
+  border-color: var(--accent-red) !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
+  transition: all 0.2s ease-in-out;
+}
+
