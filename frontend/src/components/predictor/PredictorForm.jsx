@@ -91,6 +91,8 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
             <label className="text-sm font-medium text-secondary-foreground">EAPCET Rank</label>
             <Input 
               type="number" 
+              inputMode="numeric"
+              pattern="[0-9]*"
               name="rank"
               placeholder="e.g. 15000" 
               value={formData.rank}

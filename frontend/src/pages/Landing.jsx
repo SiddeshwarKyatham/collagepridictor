@@ -38,19 +38,19 @@ export default function Landing() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-24 lg:pt-32 lg:pb-40">
+        <section className="relative overflow-hidden pt-6 pb-16 lg:pt-32 lg:pb-40">
           {/* Subtle background glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent-blue/10 blur-[100px] rounded-full pointer-events-none" />
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-8 items-center">
               
               {/* Left text content */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="max-w-2xl"
+                className="max-w-2xl order-2 lg:order-1"
               >
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary-foreground leading-tight mb-6">
                   Find the Best TG EAPCET Colleges for Your Rank
@@ -108,7 +108,7 @@ export default function Landing() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="w-full max-w-md mx-auto lg:ml-auto lg:mr-0"
+                className="w-full max-w-md mx-auto lg:ml-auto lg:mr-0 order-1 lg:order-2"
               >
                 <PredictorForm />
               </motion.div>
