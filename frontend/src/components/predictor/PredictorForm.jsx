@@ -36,19 +36,6 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
     branch: initialBranch, 
   });
 
-  // Sync state ONLY when primitive values actually change (avoiding resets on every keystroke)
-  useEffect(() => {
-    setFormData({
-      rank: initialRank,
-      category: initialCategory,
-      gender: initialGender,
-      phase: initialPhase,
-      district: initialDistrict,
-      branch: initialBranch,
-    });
-    setErrors({});
-  }, [initialRank, initialCategory, initialGender, initialPhase, initialDistrict, initialBranch]);
-
   useEffect(() => {
     // Fetch available filters
     getDistricts().then(res => {

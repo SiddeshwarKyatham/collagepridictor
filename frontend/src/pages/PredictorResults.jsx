@@ -176,7 +176,11 @@ export default function PredictorResults() {
             <h2 className="text-lg font-semibold mb-4 text-primary-foreground flex items-center">
               <SlidersHorizontal className="w-5 h-5 mr-2 text-secondary-foreground" /> Adjust Parameters
             </h2>
-            <PredictorForm initialData={currentParams} onPredict={handlePredict} />
+            <PredictorForm 
+              key={`desktop-${currentParams.rank}-${currentParams.category}-${currentParams.gender}-${currentParams.phase}-${currentParams.district}-${currentParams.branches ? currentParams.branches.join(',') : ''}`}
+              initialData={currentParams} 
+              onPredict={handlePredict} 
+            />
           </div>
 
           {/* Mobile Filters Drawer */}
@@ -196,7 +200,11 @@ export default function PredictorResults() {
                       <X className="w-6 h-6" />
                     </Button>
                   </div>
-                  <PredictorForm initialData={currentParams} onPredict={handlePredict} />
+                  <PredictorForm 
+                    key={`mobile-${currentParams.rank}-${currentParams.category}-${currentParams.gender}-${currentParams.phase}-${currentParams.district}-${currentParams.branches ? currentParams.branches.join(',') : ''}`}
+                    initialData={currentParams} 
+                    onPredict={handlePredict} 
+                  />
                 </div>
               </motion.div>
             )}
