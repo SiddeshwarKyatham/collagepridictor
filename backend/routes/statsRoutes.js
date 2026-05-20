@@ -2,18 +2,18 @@ const express = require('express');
 const router = express.Router();
 const statsService = require('../services/statsService');
 
-router.get('/stats', (req, res) => {
+router.get('/stats', async (req, res) => {
   try {
-    const stats = statsService.getStats();
+    const stats = await statsService.getStats();
     res.json({ success: true, ...stats });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-router.post('/stats/increment', (req, res) => {
+router.post('/stats/increment', async (req, res) => {
   try {
-    const stats = statsService.incrementStats();
+    const stats = await statsService.incrementStats();
     res.json({ success: true, ...stats });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

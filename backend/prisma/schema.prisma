@@ -81,3 +81,11 @@ model CollegeProfile {
 
   @@map("college_profiles")
 }
+
+model SystemStats {
+  key   String @id
+  value Int    @default(0)
+
+  @@map("system_stats")
+}
+

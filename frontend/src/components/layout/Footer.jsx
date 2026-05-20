@@ -1,5 +1,4 @@
-import React from 'react';
-import { Heart } from 'lucide-react';
+import { Code2 } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -20,9 +19,8 @@ export default function Footer() {
           {/* Developer Credits Section */}
           <div className="flex flex-col items-center md:items-end gap-2.5">
             <div className="text-xs text-secondary-foreground flex items-center gap-1.5">
-              <span>Developed with</span> 
-              <Heart className="w-3.5 h-3.5 text-accent-red fill-accent-red animate-pulse" /> 
-              <span>by</span>
+              <Code2 className="w-3.5 h-3.5 text-accent-blue" />
+              <span>Designed & Developed by</span>
               <span className="font-semibold text-primary-foreground hover:text-accent-blue transition-colors">
                 Siddeshwar Kyatham
               </span>

@@ -1,42 +1,33 @@
-const fs = require('fs');
-const path = require('path');
+const prisma = require('../config/prisma');
 
-const statsFilePath = path.join(__dirname, '../data/stats.json');
-
-// Ensure data folder and stats file exist with a baseline count
-function ensureStatsFile() {
-  const dirPath = path.dirname(statsFilePath);
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-  
-  if (!fs.existsSync(statsFilePath)) {
-    // Starting with a genuine baseline of 0
-    const defaultStats = { visitorCount: 0 };
-    fs.writeFileSync(statsFilePath, JSON.stringify(defaultStats, null, 2), 'utf-8');
-  }
-}
-
-function getStats() {
-  ensureStatsFile();
+/**
+ * Retrieves system statistics (visitor count) from PostgreSQL.
+ */
+async function getStats() {
   try {
-    const data = fs.readFileSync(statsFilePath, 'utf-8');
-    return JSON.parse(data);
+    const stat = await prisma.systemStats.findUnique({
+      where: { key: 'visitorCount' }
+    });
+    return { visitorCount: stat ? stat.value : 0 };
   } catch (error) {
-    console.error('Error reading stats file:', error);
+    console.error('Error fetching stats from DB:', error);
     return { visitorCount: 0 };
   }
 }
 
-function incrementStats() {
-  ensureStatsFile();
+/**
+ * Increments the visitor count inside PostgreSQL.
+ */
+async function incrementStats() {
   try {
-    const current = getStats();
-    current.visitorCount += 1;
-    fs.writeFileSync(statsFilePath, JSON.stringify(current, null, 2), 'utf-8');
-    return current;
+    const stat = await prisma.systemStats.upsert({
+      where: { key: 'visitorCount' },
+      update: { value: { increment: 1 } },
+      create: { key: 'visitorCount', value: 1 }
+    });
+    return { visitorCount: stat.value };
   } catch (error) {
-    console.error('Error writing stats file:', error);
+    console.error('Error incrementing stats in DB:', error);
     return { visitorCount: 0 };
   }
 }
