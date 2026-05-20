@@ -17,36 +17,37 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
   const [errors, setErrors] = useState({});
   const [shakingFields, setShakingFields] = useState({});
   
-  // Handle branches being an array from URL params or a single string
+  // Extract primitive values from initialData to prevent infinite loop / keystroke resets
+  const initialRank = initialData.rank || '';
+  const initialCategory = initialData.category || '';
+  const initialGender = initialData.gender || '';
+  const initialPhase = initialData.phase || '';
+  const initialDistrict = initialData.district || 'All';
   const initialBranch = Array.isArray(initialData.branches) && initialData.branches.length > 0 
     ? initialData.branches[0] 
-    : (initialData.branches || '');
+    : (initialData.branches || 'All');
 
   const [formData, setFormData] = useState({
-    rank: initialData.rank || '',
-    category: initialData.category || '',
-    gender: initialData.gender || '',
-    phase: initialData.phase || '',
-    district: initialData.district || '',
+    rank: initialRank,
+    category: initialCategory,
+    gender: initialGender,
+    phase: initialPhase,
+    district: initialDistrict,
     branch: initialBranch, 
   });
 
-  // Sync state if initialData changes (e.g., when navigation or search updates params)
+  // Sync state ONLY when primitive values actually change (avoiding resets on every keystroke)
   useEffect(() => {
-    const nextBranch = Array.isArray(initialData.branches) && initialData.branches.length > 0 
-      ? initialData.branches[0] 
-      : (initialData.branches || '');
-
     setFormData({
-      rank: initialData.rank || '',
-      category: initialData.category || '',
-      gender: initialData.gender || '',
-      phase: initialData.phase || '',
-      district: initialData.district || '',
-      branch: nextBranch,
+      rank: initialRank,
+      category: initialCategory,
+      gender: initialGender,
+      phase: initialPhase,
+      district: initialDistrict,
+      branch: initialBranch,
     });
     setErrors({});
-  }, [initialData]);
+  }, [initialRank, initialCategory, initialGender, initialPhase, initialDistrict, initialBranch]);
 
   useEffect(() => {
     // Fetch available filters
@@ -75,7 +76,7 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Detailed client-side validation
+    // Detailed client-side validation for required fields
     const newErrors = {};
     if (!formData.rank || parseInt(formData.rank) <= 0) {
       newErrors.rank = "Please enter a valid rank (greater than 0).";
@@ -88,12 +89,6 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
     }
     if (!formData.phase) {
       newErrors.phase = "Please select a Counseling Phase.";
-    }
-    if (!formData.district) {
-      newErrors.district = "Please select a District Preference.";
-    }
-    if (!formData.branch) {
-      newErrors.branch = "Please select a Branch Preference.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -261,20 +256,17 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
           </div>
 
           <div className="pt-2 border-t border-border/70 mt-2">
-            <p className="text-sm font-semibold mb-3 text-primary-foreground">Required Preferences</p>
+            <p className="text-sm font-semibold mb-3 text-primary-foreground">Optional Preferences</p>
             
             <div className="space-y-4">
-              <div className={`space-y-2 transition-all duration-300 ${shakingFields.district ? 'animate-shake' : ''}`}>
+              <div className="space-y-2">
                 <label className="text-sm font-medium text-secondary-foreground">District Preference</label>
                 <Select 
                   name="district" 
                   value={formData.district} 
                   onChange={handleChange}
-                  className={`transition-all duration-200 ${
-                    errors.district ? 'border-error-glow ring-1 ring-accent-red/30' : ''
-                  } ${formData.district === '' ? 'text-secondary-foreground/70' : 'text-primary-foreground'}`}
+                  className="transition-all duration-200 text-primary-foreground"
                 >
-                  <option value="" disabled hidden>Select District Preference</option>
                   <option value="All">All Districts</option>
                   {districts.map(dist => (
                     <option key={dist} value={dist}>{dist}</option>
@@ -282,17 +274,14 @@ export default function PredictorForm({ initialData = {}, onPredict }) {
                 </Select>
               </div>
 
-              <div className={`space-y-2 transition-all duration-300 ${shakingFields.branch ? 'animate-shake' : ''}`}>
+              <div className="space-y-2">
                 <label className="text-sm font-medium text-secondary-foreground">Branch Preference</label>
                 <Select 
                   name="branch" 
                   value={formData.branch} 
                   onChange={handleChange}
-                  className={`transition-all duration-200 ${
-                    errors.branch ? 'border-error-glow ring-1 ring-accent-red/30' : ''
-                  } ${formData.branch === '' ? 'text-secondary-foreground/70' : 'text-primary-foreground'}`}
+                  className="transition-all duration-200 text-primary-foreground"
                 >
-                  <option value="" disabled hidden>Select Branch Preference</option>
                   <option value="All">All Branches</option>
                   {branchesList.map(b => (
                     <option key={b.branchCode} value={b.branchCode}>
