@@ -72,11 +72,17 @@ export default function PredictorResults() {
     return [...results.results].sort((a, b) => {
       if (sortOrder === 'safe-to-dream') {
         return b.admissionChance - a.admissionChance;
-      } else {
+      } else if (sortOrder === 'dream-to-safe') {
         return a.admissionChance - b.admissionChance;
+      } else if (sortOrder === 'best-fit') {
+        const rank = parseInt(currentParams.rank) || 0;
+        const diffA = Math.abs(a.closingRank - rank);
+        const diffB = Math.abs(b.closingRank - rank);
+        return diffA - diffB;
       }
+      return 0;
     });
-  }, [results, sortOrder]);
+  }, [results, sortOrder, currentParams.rank]);
 
   const downloadPDF = () => {
     if (selectedColleges.length === 0) return;
@@ -255,15 +261,37 @@ export default function PredictorResults() {
                       <h3 className="text-xl font-semibold mb-1">All Possible Colleges</h3>
                       <span className="text-sm text-secondary-foreground">Showing {results.meta.totalShown} realistic options</span>
                     </div>
-                    <div className="flex items-center gap-3 w-full sm:w-auto">
-                      <select 
-                        className="bg-secondary/80 backdrop-blur-sm border border-border text-sm rounded-xl px-3 py-2 text-primary-foreground focus:ring-2 focus:ring-accent-blue/40 focus:border-accent-blue focus:outline-none w-full sm:w-auto transition-all"
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
+                    <div className="flex items-center gap-1.5 bg-secondary/40 backdrop-blur-sm border border-border p-1 rounded-2xl w-full sm:w-auto overflow-x-auto shrink-0 scrollbar-none">
+                      <button
+                        onClick={() => setSortOrder('safe-to-dream')}
+                        className={`text-xs font-bold px-3.5 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                          sortOrder === 'safe-to-dream'
+                            ? 'bg-accent-blue text-white shadow-md shadow-accent-blue/20'
+                            : 'text-secondary-foreground hover:text-primary-foreground hover:bg-secondary/60'
+                        }`}
                       >
-                        <option value="safe-to-dream">⬆ Safe to Dream</option>
-                        <option value="dream-to-safe">⬇ Dream to Safe</option>
-                      </select>
+                        ⬆ Safe to Dream
+                      </button>
+                      <button
+                        onClick={() => setSortOrder('dream-to-safe')}
+                        className={`text-xs font-bold px-3.5 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                          sortOrder === 'dream-to-safe'
+                            ? 'bg-accent-blue text-white shadow-md shadow-accent-blue/20'
+                            : 'text-secondary-foreground hover:text-primary-foreground hover:bg-secondary/60'
+                        }`}
+                      >
+                        ⬇ Dream to Safe
+                      </button>
+                      <button
+                        onClick={() => setSortOrder('best-fit')}
+                        className={`text-xs font-extrabold px-3.5 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap flex items-center gap-0.5 ${
+                          sortOrder === 'best-fit'
+                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-md shadow-amber-500/20'
+                            : 'text-secondary-foreground hover:text-primary-foreground hover:bg-secondary/60'
+                        }`}
+                      >
+                        🎯 Best Fit
+                      </button>
                     </div>
                   </div>
                   

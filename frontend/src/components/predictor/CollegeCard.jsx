@@ -55,6 +55,11 @@ const CollegeCard = memo(function CollegeCard({ data, isSelected, priority, onTo
                 {data.collegeCode}
               </span>
               <Badge variant={badgeVariant} className="text-[9px] px-1.5 py-0 uppercase shrink-0">{data.prediction}</Badge>
+              {data.isBestFit && (
+                <Badge className="text-[9px] px-1.5 py-0 uppercase shrink-0 bg-amber-500 hover:bg-amber-600 text-black font-extrabold flex items-center gap-0.5 shadow-sm border-0">
+                  🎯 Best Fit
+                </Badge>
+              )}
             </div>
             <h3 className="font-semibold text-primary-foreground line-clamp-2 leading-tight text-sm break-words">
               {data.collegeName}

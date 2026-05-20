@@ -101,6 +101,7 @@ async function predict(params) {
       closingRank: r.closingRank,
       prediction,
       admissionChance,
+      isBestFit:   r.closingRank >= rank * 0.7 && r.closingRank <= rank * 1.35,
       tuitionFee: profile.tuitionFee,
       averagePlacement: profile.averagePlacement,
       rankDiff: rank - r.closingRank
